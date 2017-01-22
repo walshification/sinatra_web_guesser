@@ -26,6 +26,7 @@
 
 guard :rspec, cmd: "bundle exec rspec" do
   require "guard/rspec/dsl"
+
   clearing :on
   dsl = Guard::RSpec::Dsl.new(self)
 
