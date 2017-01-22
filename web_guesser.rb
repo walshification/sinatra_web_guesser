@@ -4,5 +4,5 @@ require 'sinatra/reloader'
 RANDOM_NUMBER = rand(101)
 
 get '/web_guesser' do
-  "The SECRET NUMBER is #{RANDOM_NUMBER}."
+  erb :index, :locals => { :number => RANDOM_NUMBER }
 end

@@ -7,7 +7,7 @@ RSpec.describe "My Sinatra Application" do
 
     it 'generates a random number between 0 and 100' do
       get '/web_guesser'
-      expect(/^The SECRET NUMBER is [0-9]{1}[0-9]?[0]?.$/.match(last_response.body)).to be_truthy
+      expect(/.*The SECRET NUMBER is [0-9]{1}[0-9]?[0]?\..*/.match(last_response.body)).to be_truthy
     end
   end
 end
