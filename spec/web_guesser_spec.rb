@@ -73,5 +73,12 @@ RSpec.describe "My Sinatra Application" do
         expect(last_response.body).to include('5 guesses left!')
       end
     end
+
+    context 'params[:cheat]' do
+      it 'displays the answer' do
+        get '/web_guesser?cheat=true&rando=42'
+        expect(last_response.body).to include('THE ANSWER IS 42')
+      end
+    end
   end
 end

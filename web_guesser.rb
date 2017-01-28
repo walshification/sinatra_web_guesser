@@ -7,11 +7,13 @@ get '/web_guesser' do
   if session[:random_number].nil?
     reset
   end
+  answer = params[:cheat] ? "CHEAT MODE ACTIVATED! THE ANSWER IS #{random_number}" : nil
   color, message = check_guess(params[:guess])
   erb :index, :locals => {
     message: message,
     color: color,
     count: session[:guesses],
+    answer: answer,
   }
 end
 
@@ -21,24 +23,27 @@ end
 
 private
 
+def random_number
+  # params[:rando] is set for tests
+  params[:rando].nil? ? session[:random_number] : params[:rando].to_i
+end
+
 def check_guess(guess)
   return 'blue', 'Guess a number between 0 and 100' if guess.nil?
-  # params[:rando] is set for tests
-  random_number = params[:rando].nil? ? session[:random_number] : params[:rando].to_i
   session[:guesses] -= 1
   build_message(guess.to_i, random_number)
 end
 
 def build_message(guess, random_number)
-  if guess.to_i == random_number
+  if guess == random_number
     reset
     return 'green', 'You got it right! Try again with a new number!'
   end
   message = []
   if session[:guesses] > 0
-    message << 'way'       if (guess.to_i - random_number).abs > 10
-    message << 'too high!' if guess.to_i > random_number
-    message << 'too low!'  if guess.to_i < random_number
+    message << 'way'       if (guess - random_number).abs > 10
+    message << 'too high!' if guess > random_number
+    message << 'too low!'  if guess < random_number
   else
     reset
     message << "Nice try! The number was #{random_number}. Try again with a new number!"
