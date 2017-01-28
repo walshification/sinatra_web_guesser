@@ -8,11 +8,14 @@
     </style>
   </head>
   <body>
+    <div>
+      <%= count %> guesses left!
+    </div>
     <p>
       <%= message %>
     </p>
     <form>
-      <input type='text' name='guess' />
+      <input autofocus type='text' name='guess' />
       <input type='submit' value='Guess!' />
     </form>
   </body>
