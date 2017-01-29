@@ -16,7 +16,8 @@ RSpec.describe "My Sinatra Application" do
 
     it 'tells the user a guess is correct' do
       get '/web_guesser?rando=42&guess=42'
-      expect(last_response.body).to include('You got it right!')
+      expected_message = 'You got it right! Try again with a new number'
+      expect(last_response.body).to include(expected_message)
     end
 
     it 'gives the user 5 guesses' do
@@ -55,21 +56,18 @@ RSpec.describe "My Sinatra Application" do
     end
 
     context 'after 5 guesses' do
+      before(:each) do
+        5.times do
+          get '/web_guesser?rando=42&guess=10'
+        end
+      end
+
       it 'tells players they lost' do
-        get '/web_guesser?rando=42&guess=10'
-        get '/web_guesser?rando=42&guess=10'
-        get '/web_guesser?rando=42&guess=10'
-        get '/web_guesser?rando=42&guess=10'
-        get '/web_guesser?rando=42&guess=10'
-        expect(last_response.body).to include('Nice try!')
+        expected = 'Nice try! The number was 42. Try again with a new number'
+        expect(last_response.body).to include(expected)
       end
 
       it 'resets the guess count after' do
-        get '/web_guesser?rando=42&guess=10'
-        get '/web_guesser?rando=42&guess=10'
-        get '/web_guesser?rando=42&guess=10'
-        get '/web_guesser?rando=42&guess=10'
-        get '/web_guesser?rando=42&guess=10'
         expect(last_response.body).to include('5 guesses left!')
       end
     end
