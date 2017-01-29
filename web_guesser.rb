@@ -7,7 +7,7 @@ enable :sessions
 get '/web_guesser' do
   reset if session[:random_number].nil?
 
-  if params[:guess].to_i - session[:random_number] > 10
+  if chosen?
     message_crafter = MessageCrafter.for(params, session)
   else
     message_crafter = MessageCrafter.new(params, session)
@@ -27,4 +27,9 @@ def reset
   # params[:rando] is set for tests
   session[:random_number] = params[:rando] ? params[:rando].to_i : Kernel.rand(101)
   session[:guesses] = 5
+end
+
+def chosen?
+  (params[:guess].to_i == session[:random_number] ||
+   params[:guess].to_i - session[:random_number] > 10)
 end

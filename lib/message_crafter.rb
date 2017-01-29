@@ -32,7 +32,7 @@ class MessageCrafter
     elsif params[:guess].to_i < session[:random_number]
       klass = 'low'
     end
-    MESSAGES[klass].new(session, params[:guess].to_i, params[:rando], params[:cheat])
+    MESSAGES[klass].new(session, params[:cheat])
   end
 
   def color
