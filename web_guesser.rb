@@ -7,7 +7,11 @@ enable :sessions
 get '/web_guesser' do
   reset if session[:random_number].nil?
 
-  message_crafter = MessageCrafter.new(params, session)
+  if params[:guess].to_i - session[:random_number] > 10
+    message_crafter = MessageCrafter.for(params, session)
+  else
+    message_crafter = MessageCrafter.new(params, session)
+  end
 
   erb :index, :locals => { message_crafter: message_crafter }
 end
