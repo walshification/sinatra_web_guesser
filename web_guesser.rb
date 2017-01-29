@@ -9,12 +9,7 @@ get '/web_guesser' do
 
   message_crafter = MessageCrafter.new(params, session)
 
-  erb :index, :locals => {
-    message: message_crafter.message,
-    color: message_crafter.color,
-    count: message_crafter.guesses,
-    answer: message_crafter.answer,
-  }
+  erb :index, :locals => { message_crafter: message_crafter }
 end
 
 get '/reset' do
