@@ -1,10 +1,10 @@
 class Correct
-  attr_reader :cheat, :message
+  attr_reader :cheat, :message, :session
 
   def initialize(session, cheat)
     @cheat = cheat ? "CHEAT MODE ACTIVATED! THE ANSWER IS #{session[:random_number]}" : nil
     @session = session
-    @message = check_guess
+    check_guess
   end
 
   def color
@@ -19,7 +19,7 @@ class Correct
 
   def check_guess
     @session[:guesses] = 5
-
-    'You got it right! Try again with a new number!'
+    @session[:random_number] = Kernel.rand(101)
+    @message = 'You got it right! Try again with a new number!'
   end
 end

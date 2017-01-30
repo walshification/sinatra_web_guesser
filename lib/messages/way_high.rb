@@ -1,5 +1,5 @@
 class WayHigh
-  attr_reader :cheat, :message
+  attr_reader :cheat, :message, :session
 
   def initialize(session, cheat)
     @cheat = cheat ? "CHEAT MODE ACTIVATED! THE ANSWER IS #{session[:random_number]}" : nil
