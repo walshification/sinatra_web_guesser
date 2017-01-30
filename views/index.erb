@@ -2,22 +2,22 @@
   <head>
     <style>
       body {
-        background: <%= color %>;
+        background: <%= message.color %>;
         color: white;
       }
     </style>
   </head>
   <body>
     <div>
-      <%= count %> guesses left!
+      <%= message.guesses %> guesses left!
     </div>
     <p>
-      <%= message %>
+      <%= message.message %>
     </p>
     <form>
       <input autofocus type='text' name='guess' />
       <input type='submit' value='Guess!' />
     </form>
-    <div><%= answer %></div>
+    <div><%= message.cheat %></div>
   </body>
 </html>
