@@ -1,8 +1,6 @@
 require_relative 'messages'
 
 class MessageCrafter
-  attr_reader :cheat, :message
-
   MESSAGES = {
     'new'      => NewMessage,
     'way high' => WayHigh,

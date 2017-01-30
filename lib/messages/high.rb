@@ -1,15 +1,12 @@
 class High
-  attr_reader :cheat, :message, :session
+  attr_reader :cheat, :color, :message, :session
 
   def initialize(session, cheat)
     @random_number = session[:random_number]
     @cheat = cheat ? "CHEAT MODE ACTIVATED! THE ANSWER IS #{@random_number}" : nil
     @session = session
+    @color = '#ff6666'
     check_guess
-  end
-
-  def color
-    '#ff6666'
   end
 
   def guesses
@@ -24,7 +21,6 @@ class High
   end
 
   def build_message
-    # message = []
     if @session[:guesses] > 0
       @message = 'Too high!'
     else
@@ -38,8 +34,7 @@ class High
   end
 
   def reset
-    # params[:rando] is set for tests
-    @session[:random_number] = @params[:rando] ? @params[:rando].to_i : Kernel.rand(101)
+    @session[:random_number] = Kernel.rand(101)
     @session[:guesses] = 5
   end
 end
